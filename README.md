@@ -11,8 +11,7 @@ To start the app:
     - `cd api-server`
     - `npm install`
     - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
+* In another terminal window, start the front-end
     - `cd frontend`
+    - `npm install`
     - `npm start`
-
