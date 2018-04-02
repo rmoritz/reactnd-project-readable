@@ -1,21 +1,21 @@
 ////////// CATEGORIES
 
 export function getAllCategories() {
-    return fetchPart('categories');
+    return getPart('categories');
 }
 
 ////////// POSTS
 
 export function getAllPosts() {
-    return fetchPart('posts');
+    return getPart('posts');
 }
 
 export function getPostById(id) {
-    return fetchPart(`posts/${id}`);
+    return getPart(`posts/${id}`);
 }
 
 export function getPostsInCategory(categoryId) {
-    return fetchPart(`${categoryId}/posts`);
+    return getPart(`${categoryId}/posts`);
 }
 
 export function addPost(post) {
@@ -45,7 +45,7 @@ export function deletePost(id) {
 ////////// COMMENTS
 
 export function getCommentsForPost(postId) {
-    return fetchPart(`posts/${postId}/comments`);
+    return getPart(`posts/${postId}/comments`);
 }
 
 export function addComment(comment) {
@@ -57,7 +57,7 @@ export function updateComment(comment) {
 }
 
 export function getCommentById(id) {
-    return fetchPart(`comments/${id}`);
+    return getPart(`comments/${id}`);
 }
 
 export function upVoteComment(id) {
@@ -79,17 +79,19 @@ export function deleteComment(id) {
 ////////// IMPLEMENTATION DETAILS
 
 const baseUri = 'http://localhost:3001';
-const token = localStorage.token
-      || localStorage.token = Math.random().toString(36).substr(-8);
+if (!localStorage.token) {
+    localStorage.token = Math.random().toString(36).substr(-8);
+}
+const token = localStorage.token;
 const headers = {
   'Accept': 'application/json',
   'Authorization': token
 };
 
-function fetchPart(uriPart) {
+function getPart(uriPart) {
     return fetch(`${baseUri}/${uriPart}`, {
         headers: headers
-    });
+    }).then(res => res.json());
 }
 
 function postPart(uriPart, data) {
