@@ -5,7 +5,7 @@ export const LOAD_POSTS = 'LOAD_POSTS';
 export function loadPosts() {
     return (dispatch) =>
         Api.getAllPosts()
-        .then(posts =>
+        .then((posts) =>
               dispatch(loadPostsImpl(posts)));
 }
 

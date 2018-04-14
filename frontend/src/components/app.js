@@ -1,24 +1,11 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import { Route } from 'react-router-dom';
-import { Panel, Container, Heading, Subhead } from 'rebass';
-import PostList from './postlist';
+import { Panel, Container, Heading } from 'rebass';
 import { loadPosts } from '../actions/posts';
+import { loadCategories } from '../actions/categories';
 import { loadIcons } from '../utils/icons';
-
-const AllPosts = () => (
-    <div>
-      <Subhead mt={25} mb={25} children="All posts" />
-      <PostList />
-    </div>
-);
-
-const PostsInCategory = ({ match }) => (
-    <div>
-      <Subhead mt={25} mb={25} children={`Posts in category ${match.params.category}`} />
-      <PostList predicate={(post) => post.category === match.params.category} />
-    </div>
-);
+import PostsSummary from '../components/posts-summary';
 
 class App extends React.Component {
     render() {
@@ -32,10 +19,10 @@ class App extends React.Component {
                 </Panel.Header>
                 <Route
                   exact path="/"
-                  component={AllPosts} />
+                  component={PostsSummary} />
                 <Route
                   exact path="/:category"
-                  component={PostsInCategory} />
+                  component={PostsSummary} />
               </Panel>
             </Container>
         );
@@ -45,8 +32,10 @@ class App extends React.Component {
         loadIcons();
 
         const { dispatch } = this.props;
+
+        dispatch(loadCategories());
         dispatch(loadPosts());
-    }    
+    }
 }
 
 export default ReactRedux.connect()(App);

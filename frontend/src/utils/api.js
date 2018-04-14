@@ -1,7 +1,8 @@
 ////////// CATEGORIES
 
 export function getAllCategories() {
-    return getPart('categories');
+    return getPart('categories')
+        .then(res => res.categories);
 }
 
 ////////// POSTS

@@ -7,14 +7,19 @@ import { BrowserRouter } from 'react-router-dom';
 import * as Rebass from 'rebass';
 import App from './components/app';
 import registerServiceWorker from './registerServiceWorker';
-import reducer from './reducers/posts';
+import posts from './reducers/posts';
+import categories from './reducers/categories';
 import theme from './themes/default';
+
+const reducer = Redux.combineReducers({
+    categories,
+    posts
+});
 
 const composeEnhancers = 
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
 
 const store = Redux.createStore(
-    reducer,
     reducer,
     composeEnhancers(Redux.applyMiddleware(thunk))
 );

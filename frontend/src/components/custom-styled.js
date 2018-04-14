@@ -1,24 +1,18 @@
-import { Column } from 'rebass';
+import * as Rebass from 'rebass';
 import sys from 'system-components';
 
-const HColumn = sys({
-    is: Column,
+const Subhead = sys({
+    is: Rebass.Subhead,
+    mx: 2
+});
+
+const Column = sys({
+    is: Rebass.Column,
     mb: 0,
     bg: 'gray',
     px: 3,
     py: 1,
-    borderWidth: 1,
-    borderColor: 'darkgray'
+    border: 1
 });
 
-const BColumn = sys({
-    is: Column,
-    mb: 0,
-    bg: 'lightgray',
-    px: 3,
-    py: 1,
-    borderWidth: 1,
-    borderColor: 'darkgray'
-});
-
-export { HColumn, BColumn };
+export { Subhead, Column };
