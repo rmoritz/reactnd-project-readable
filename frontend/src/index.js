@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import * as Redux from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 import * as Rebass from 'rebass';
-import App from './components/App';
+import App from './components/app';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducers/posts';
 import theme from './themes/default';
@@ -20,9 +21,11 @@ const store = Redux.createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <Rebass.Provider theme={theme}>
-            <App/>
-        </Rebass.Provider>
+      <Rebass.Provider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Rebass.Provider>
     </Provider>,
     document.getElementById('root'));
 registerServiceWorker();
