@@ -15,6 +15,7 @@
     "rebass": "^2.0.0-0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "sort-by": "^1.2.0",
     "system-components": "^2.0.2"
   },
   "scripts": {

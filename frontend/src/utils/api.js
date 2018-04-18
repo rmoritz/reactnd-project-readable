@@ -102,7 +102,7 @@ function postPart(uriPart, data) {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ data })
+        body: JSON.stringify(data)
     });
 }
 
@@ -113,7 +113,7 @@ function putPart(uriPart, data) {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ data })
+        body: JSON.stringify(data)
     });
 }
 

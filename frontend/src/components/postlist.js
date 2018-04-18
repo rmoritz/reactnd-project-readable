@@ -2,8 +2,9 @@ import React from 'react';
 import * as ReactRedux from 'react-redux';
 import { Row, Text, Truncate } from 'rebass';
 import PropTypes from 'prop-types';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { Column } from './custom-styled';
+import sortBy from 'sort-by';
+import { Column, LinkIcon } from './custom-styled';
+import * as PostActions from '../actions/posts';
 
 class PostList extends React.Component {
     static propTypes = {
@@ -12,7 +13,12 @@ class PostList extends React.Component {
 
     render() {
         let { posts } = this.props;
-        const { predicate } = this.props;
+        const {
+            predicate,
+            upvotePost,
+            downvotePost,
+            deletePost
+        } = this.props;
 
         if (predicate) {
             posts = posts.filter(p => predicate(p));
@@ -21,6 +27,8 @@ class PostList extends React.Component {
         if (!posts.length) {
             return <Text mx={2} children="No posts to display" />;
         }
+
+        posts.sort(sortBy('title'));
 
         return (
             <div>
@@ -44,16 +52,19 @@ class PostList extends React.Component {
                         <Column width={1/10}>{p.commentCount}</Column>
                         <Column width={1/10}>{p.voteScore}</Column>
                         <Column width={1/20}>
-                          <FontAwesomeIcon icon="thumbs-up"/>
+                          <LinkIcon icon="thumbs-up"
+                                    onClick={() => upvotePost(p.id)} />
                         </Column>
                         <Column width={1/20}>
-                          <FontAwesomeIcon icon="thumbs-down"/>
+                          <LinkIcon icon="thumbs-down"
+                                    onClick={() => downvotePost(p.id)} />
                         </Column>
                         <Column width={1/20}>
-                          <FontAwesomeIcon icon="edit"/>
+                          <LinkIcon icon="edit" />
                         </Column>
                         <Column width={1/20}>
-                          <FontAwesomeIcon icon="trash"/>
+                          <LinkIcon icon="trash"
+                                    onClick={() => deletePost(p.id)} />
                         </Column>
                       </Row>
                   ))
@@ -69,5 +80,13 @@ function mapStateToProps({ posts }) {
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        upvotePost: (id) => dispatch(PostActions.upvotePost(id)),
+        downvotePost: (id) => dispatch(PostActions.downvotePost(id)),
+        deletePost: (id) => dispatch(PostActions.deletePost(id))
+    };
+}
+
 export default ReactRedux.connect(
-    mapStateToProps)(PostList);
+    mapStateToProps, mapDispatchToProps)(PostList);
