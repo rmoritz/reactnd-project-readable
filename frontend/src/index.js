@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 import * as Rebass from 'rebass';
+import { reducer as form } from 'redux-form';
 import App from './components/app';
 import registerServiceWorker from './registerServiceWorker';
 import posts from './reducers/posts';
@@ -13,7 +14,8 @@ import theme from './themes/default';
 
 const reducer = Redux.combineReducers({
     categories,
-    posts
+    posts,
+    form
 });
 
 const composeEnhancers = 

@@ -1,3 +1,6 @@
+import { uuidv4 } from './misc';
+import moment from 'moment';
+
 ////////// CATEGORIES
 
 export function getAllCategories() {
@@ -20,7 +23,11 @@ export function getPostsInCategory(categoryId) {
 }
 
 export function addPost(post) {
-    return postPart('posts', post);
+    return postPart('posts', {
+        ...post,
+        id: uuidv4(),
+        timestamp: moment().valueOf()
+    });
 }
 
 export function upVotePost(id) {

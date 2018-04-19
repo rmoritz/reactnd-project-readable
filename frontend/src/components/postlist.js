@@ -10,7 +10,8 @@ import * as PostActions from '../actions/posts';
 
 class PostList extends React.Component {
     static propTypes = {
-        predicate: PropTypes.func
+        predicate: PropTypes.func,
+        editPost: PropTypes.func.isRequired,
     }
 
     constructor() {
@@ -36,6 +37,7 @@ class PostList extends React.Component {
         }
         else {
             this.setState({
+                ...state,
                 sortField: field,
                 sortDir: '-'
             });
@@ -53,7 +55,8 @@ class PostList extends React.Component {
             predicate,
             upvotePost,
             downvotePost,
-            deletePost
+            deletePost,
+            editPost
         } = this.props;
         const {
             sortDir,
@@ -85,7 +88,7 @@ class PostList extends React.Component {
                 <LinkColumn bg='lightgray'
                             width={15/100}
                             onClick={() => this.setSortOrder('timestamp')}>
-                  Updated &nbsp; { sortField === 'timestamp' && <FontAwesomeIcon icon={sortDirIcon} /> }
+                  Created &nbsp; { sortField === 'timestamp' && <FontAwesomeIcon icon={sortDirIcon} /> }
                 </LinkColumn>
                 <Column bg='lightgray' width={5/100} />
                 <Column bg='lightgray' width={5/100} />
@@ -115,7 +118,8 @@ class PostList extends React.Component {
                                     onClick={() => downvotePost(p.id)} />
                         </Column>
                         <Column width={5/100}>
-                          <LinkIcon icon="edit" />
+                          <LinkIcon icon="edit"
+                                    onClick={() => editPost(p) }/>
                         </Column>
                         <Column width={5/100}>
                           <LinkIcon icon="trash"
@@ -131,7 +135,7 @@ class PostList extends React.Component {
 
 function mapStateToProps({ posts }) {
     return {
-        posts: posts
+        posts
     };
 }
 
