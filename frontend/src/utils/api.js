@@ -103,7 +103,7 @@ function postPart(uriPart, data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    });
+    }).then(res => res.json());
 }
 
 function putPart(uriPart, data) {
@@ -114,7 +114,7 @@ function putPart(uriPart, data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    });
+    }).then(res => res.json());
 }
 
 function deletePart(uriPart) {

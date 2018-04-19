@@ -4,6 +4,8 @@ export const LOAD_POSTS = 'LOAD_POSTS';
 export const UPVOTE_POST = 'UPVOTE_POST';
 export const DOWNVOTE_POST = 'DOWNVOTE_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const CREATE_POST = 'CREATE_POST';
+export const UPDATE_POST = 'UPDATE_POST';
 
 export function loadPosts() {
     return (dispatch) =>
@@ -15,15 +17,15 @@ export function loadPosts() {
 export function upvotePost(id) {
     return (dispatch) =>
         Api.upVotePost(id)
-        .then(() =>
-              dispatch(upvotePostImpl(id)));
+        .then((res) =>
+              dispatch(upvotePostImpl(res)));
 }
 
 export function downvotePost(id) {
     return (dispatch) =>
         Api.downVotePost(id)
-        .then(() =>
-              dispatch(downvotePostImpl(id)));
+        .then((res) =>
+              dispatch(downvotePostImpl(res)));
 }
 
 export function deletePost(id) {
@@ -33,6 +35,34 @@ export function deletePost(id) {
               dispatch(deletePostImpl(id)));
 }
 
+export function createPost(post) {
+    return (dispatch) =>
+        Api.addPost(post)
+        .then((res) =>
+              dispatch(createPostImpl(res)));
+}
+
+export function updatePost(post) {
+    return (dispatch) =>
+        Api.updatePost(post)
+        .then((res) =>
+              dispatch(updatePostImpl(res)));
+}
+
+function createPostImpl(post) {
+    return {
+        type: CREATE_POST,
+        post
+    };
+}
+
+function updatePostImpl(post) {
+    return {
+        type: UPDATE_POST,
+        post
+    };
+}
+
 function deletePostImpl(postId) {
     return {
         type: DELETE_POST,
@@ -40,17 +70,17 @@ function deletePostImpl(postId) {
     };
 }
 
-function downvotePostImpl(postId) {
+function downvotePostImpl(post) {
     return {
         type: DOWNVOTE_POST,
-        postId
+        post
     };
 }
 
-function upvotePostImpl(postId) {
+function upvotePostImpl(post) {
     return {
         type: UPVOTE_POST,
-        postId
+        post
     };
 }
 

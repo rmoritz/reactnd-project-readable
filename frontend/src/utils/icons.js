@@ -4,15 +4,17 @@ import faThumbsDown from '@fortawesome/fontawesome-free-solid/faThumbsDown';
 import faEdit from '@fortawesome/fontawesome-free-solid/faEdit';
 import faTrash from '@fortawesome/fontawesome-free-solid/faTrash';
 import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare';
+import faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
+import faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
 
-function loadIcons() {
+export function loadIcons() {
     FontAwesome.library.add(
         faThumbsUp,
         faThumbsDown,
         faEdit,
         faTrash,
-        faPlusSquare
+        faPlusSquare,
+        faSortUp,
+        faSortDown
     );
 };
-
-export { loadIcons };

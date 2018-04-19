@@ -19,7 +19,7 @@ const PostsSummary = ({ match }) => (
           <Relative>
             <Absolute right={0}>
               <LinkButton mr={2} >
-                <FontAwesomeIcon icon="plus-square"/>
+                <FontAwesomeIcon icon="plus-square" />
                 &nbsp; Add
               </LinkButton>
           </Absolute>

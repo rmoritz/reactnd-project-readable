@@ -16,6 +16,12 @@ export const Column = sys({
     border: 1
 });
 
+export const LinkColumn = sys({
+    is: Column
+}, props => ({
+    cursor: 'pointer'
+}));
+
 export const LinkButton = sys({
     is: Rebass.Button,
     bg: 'black',
