@@ -10,11 +10,13 @@ import App from './components/app';
 import registerServiceWorker from './registerServiceWorker';
 import posts from './reducers/posts';
 import categories from './reducers/categories';
+import comments from './reducers/comments';
 import theme from './themes/default';
 
 const reducer = Redux.combineReducers({
     categories,
     posts,
+    comments,
     form
 });
 

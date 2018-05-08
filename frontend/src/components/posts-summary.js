@@ -1,11 +1,11 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as PostActions from '../actions/posts';
-import { Modal, Relative, Absolute, Row, Column } from 'rebass';
+import { Modal, Relative, Absolute, Row, Column, Group, ButtonOutline } from 'rebass';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import PostList from './postlist';
-import { Subhead, LinkButton } from '../components/custom-styled';
-import PostEditor from '../components/post-editor';
+import PostList from './post-list';
+import { Subhead, LinkButton } from './custom-styled';
+import PostEditor from './post-editor';
 
 class PostsSummary extends React.Component {
     constructor() {
@@ -18,10 +18,11 @@ class PostsSummary extends React.Component {
     }
 
     render() {
-        const { match } = this.props;
+        const { categories, match } = this.props;
         const category = match.params[0];
         const { postEditorVisible, selectedPost } = this.state;
         const savePost = this.savePost.bind(this);
+        const selectCategory = this.selectCategory.bind(this);
         const selectPostAndToggleEditor =
               this.selectPostAndToggleEditorVisibility.bind(this);
         const savePostAndHideModal =
@@ -34,9 +35,19 @@ class PostsSummary extends React.Component {
                   (postEditorVisible &&
                    <Modal width={512}>
                       <PostEditor onSubmit={savePostAndHideModal}
-                                      category={category}                                                     initialValues={selectedPost} />
+                                  category={category}                                                     initialValues={selectedPost} />
                    </Modal>)
               }
+              <Subhead mt={4} children="Categories" />
+              <Group>
+                  {
+                      (categories.map(c => 
+                          <ButtonOutline key={c.name} 
+                                         color='black' children={c.name}
+                                         onClick={() => selectCategory(c)} />
+                      ))
+                  }
+              </Group>
               <Row mt={4}>
                 <Column width={3/4}>
                   {
@@ -47,7 +58,8 @@ class PostsSummary extends React.Component {
                 <Column width={1/4}>
                   <Relative>
                     <Absolute right={0}>
-                      <LinkButton mr={2} onClick={() => selectPostAndToggleEditor()}>
+                      <LinkButton fg='white' bg='black' mr={2} 
+                                  onClick={() => selectPostAndToggleEditor()}>
                         <FontAwesomeIcon icon="plus-square" />
                         &nbsp; Add post
                       </LinkButton>
@@ -60,9 +72,14 @@ class PostsSummary extends React.Component {
                    predicate={(post) => post.category === match.params[0]}
                    editPost={selectPostAndToggleEditor} />)
                       || (<PostList editPost={selectPostAndToggleEditor} />)
-              }
+                }
             </div>
         );
+    }
+
+    selectCategory(category) {
+        const { history } = this.props;
+        history.push(category.path);
     }
 
     selectPostAndToggleEditorVisibility(post) {
@@ -85,4 +102,8 @@ class PostsSummary extends React.Component {
     }
 }
 
-export default ReactRedux.connect()(PostsSummary);
+function mapStateToProps({ categories }) {
+    return { categories };
+}
+
+export default ReactRedux.connect(mapStateToProps)(PostsSummary);

@@ -2,7 +2,7 @@ import React from 'react';
 import * as ReactRedux from 'react-redux';
 import { Box, Label, Input, Textarea, Select } from 'rebass';
 import { Field, reduxForm } from 'redux-form';
-import { LinkButton } from '../components/custom-styled';
+import { LinkButton } from './custom-styled';
 
 const renderTextarea = ({ input }) => (
     <Textarea {...input} />
@@ -56,7 +56,7 @@ class PostEditor extends React.Component {
                        type="text" />
               </Box>
               <Box mt={4}>
-                <LinkButton children="Save" />
+                <LinkButton fg='white' bg='black' children="Save" />
               </Box>
             </form>
         );
@@ -64,9 +64,7 @@ class PostEditor extends React.Component {
 };
 
 function mapStateToProps({ categories }) {
-    return {
-        categories
-    };
+    return { categories };
 }
 
 export default ReactRedux.connect(mapStateToProps)(

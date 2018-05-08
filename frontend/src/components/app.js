@@ -5,8 +5,9 @@ import { Panel, Container, Heading } from 'rebass';
 import { loadPosts } from '../actions/posts';
 import { loadCategories } from '../actions/categories';
 import { loadIcons } from '../utils/icons';
-import PostsSummary from '../components/posts-summary';
-import PostEditor from '../components/post-editor.js';
+import PostsSummary from './posts-summary';
+import PostDetails from './post-details';
+import { PlainLink } from './custom-styled';
 
 class App extends React.Component {
     render() {
@@ -16,18 +17,20 @@ class App extends React.Component {
                 <Panel.Header
                   color='white'
                   bg='black'>
-                  <Heading children="Readable"/>
+                  <PlainLink to="/">
+                    <Heading children="Readable" />
+                  </PlainLink>
                 </Panel.Header>
                 <Switch>
                   <Route
                     exact path="/"
                     component={PostsSummary} />
                   <Route
-                    exact path="/add"
-                    component={PostEditor} />
-                  <Route
                     exact path="/(react|redux|udacity)"
                     component={PostsSummary} />
+                  <Route
+                    exact path="/(react|redux|udacity)/:postId"
+                    component={PostDetails} />
                 </Switch>
               </Panel>
             </Container>

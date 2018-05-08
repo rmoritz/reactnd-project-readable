@@ -1,6 +1,7 @@
 import * as Rebass from 'rebass';
 import sys from 'system-components';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import * as ReactRouterDom from 'react-router-dom';
 
 export const Subhead = sys({
     is: Rebass.Subhead,
@@ -24,8 +25,6 @@ export const LinkColumn = sys({
 
 export const LinkButton = sys({
     is: Rebass.Button,
-    bg: 'black',
-    fg: 'white'
 }, props => ({
     cursor: 'pointer'
 }));
@@ -34,4 +33,11 @@ export const LinkIcon = sys({
     is: FontAwesomeIcon
 }, props => ({
     cursor: 'pointer'
+}));
+
+export const PlainLink = sys({
+    is: ReactRouterDom.Link
+}, props => ({
+    'text-decoration': 'none',
+    'color': 'inherit'
 }));

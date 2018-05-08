@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import sortBy from 'sort-by';
 import Moment from 'react-moment';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { Column, LinkColumn, LinkIcon } from './custom-styled';
+import { Column, LinkColumn, LinkIcon, PlainLink } from './custom-styled';
 import * as PostActions from '../actions/posts';
 
 class PostList extends React.Component {
@@ -99,7 +99,9 @@ class PostList extends React.Component {
                   posts.map(p => (
                       <Row key={p.id}>
                         <Column width={25/100}>
-                          <Truncate>{p.title}</Truncate>
+                          <PlainLink to={`${p.category}/${p.id}`}>
+                            <Truncate>{p.title}</Truncate>
+                          </PlainLink>
                         </Column>
                         <Column width={15/100}>{p.author}</Column>
                         <Column width={10/100}>{p.commentCount}</Column>
@@ -134,9 +136,7 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps({ posts }) {
-    return {
-        posts
-    };
+    return { posts };
 }
 
 function mapDispatchToProps(dispatch) {
