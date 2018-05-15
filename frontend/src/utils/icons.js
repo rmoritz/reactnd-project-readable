@@ -6,6 +6,8 @@ import faTrash from '@fortawesome/fontawesome-free-solid/faTrash';
 import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare';
 import faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
 import faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
+import faComments from '@fortawesome/fontawesome-free-solid/faComments';
+import faStar from '@fortawesome/fontawesome-free-solid/faStar';
 
 export function loadIcons() {
     FontAwesome.library.add(
@@ -15,6 +17,8 @@ export function loadIcons() {
         faTrash,
         faPlusSquare,
         faSortUp,
-        faSortDown
+        faSortDown,
+        faComments,
+        faStar
     );
 };

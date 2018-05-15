@@ -1,8 +1,9 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import PropTypes from 'prop-types';
-import { Row, Column } from 'rebass';
+import { Badge, Text, Row, Column } from 'rebass';
 import { LinkIcon } from './custom-styled';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class CommentList extends React.Component {
     static propTypes = {
@@ -19,19 +20,26 @@ class CommentList extends React.Component {
             <div>
                 {
                     comments.map((c) =>
-                    (
-                        <div key={c.id}>
-                            <Row>
-                                <Column width={2/5}>{c.author}</Column>
-                                <Column width={1/5}>{c.voteScore}</Column>
-                                <Column width={1/5}><LinkIcon icon="thumbs-up" /></Column>
-                                <Column width={1/5}><LinkIcon icon="thumbs-down" /></Column>
-                            </Row>
-                            <Row>
-                                <Column>{c.body}</Column>
-                            </Row>
-                        </div>
-                    ))
+                        (
+                            <div key={c.id}>
+                                <Text>{c.body} <Badge fg='white' bg='black'>{c.author}</Badge></Text>
+                                <Row width={1/2}>
+                                    <Column width={1/5}>
+                                        <FontAwesomeIcon icon="star" /> {c.voteScore}
+                                    </Column>
+                                    <Column width={1/5}>
+                                        <LinkIcon icon="thumbs-up" />
+                                    </Column>
+                                    <Column width={1/5}>
+                                        <LinkIcon icon="thumbs-down" />
+                                    </Column>
+                                    <Column width={1/5}>
+                                        <LinkIcon icon="edit" />
+                                    </Column>
+                                    <Column width={1/5}><LinkIcon icon="trash" /></Column>
+                                </Row>
+                            </div>
+                        ))
                 }
             </div>
         );

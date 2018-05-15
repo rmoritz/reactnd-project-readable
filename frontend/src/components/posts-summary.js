@@ -35,7 +35,9 @@ class PostsSummary extends React.Component {
                   (postEditorVisible &&
                    <Modal width={512}>
                       <PostEditor onSubmit={savePostAndHideModal}
-                                  category={category}                                                     initialValues={selectedPost} />
+                                  onCancel={selectPostAndToggleEditor}
+                                  category={category}
+                                  initialValues={selectedPost} />
                    </Modal>)
               }
               <Subhead mt={4} children="Categories" />

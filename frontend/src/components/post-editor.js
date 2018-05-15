@@ -1,7 +1,8 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
-import { Box, Label, Input, Textarea, Select } from 'rebass';
+import { Row, Column, Box, Label, Input, Textarea, Select } from 'rebass';
 import { Field, reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
 import { LinkButton } from './custom-styled';
 
 const renderTextarea = ({ input }) => (
@@ -21,11 +22,24 @@ const renderSelect = ({ input, children }) => (
 );
 
 class PostEditor extends React.Component {
+    static propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+        onCancel: PropTypes.func.isRequired,
+        category: PropTypes.string,
+        initialValues: PropTypes.object
+    }
+
     render() {
-        const { categories, handleSubmit } = this.props;
+        const { 
+            categories,
+            onCancel,
+            handleSubmit, 
+            pristine, 
+            submitting 
+        } = this.props;
 
         return (
-            <form onSubmit={handleSubmit}>
+            <form>
               <Box>
                 <Label children="Title" />
                 <Field name="title"
@@ -55,9 +69,17 @@ class PostEditor extends React.Component {
                        component={renderTextarea}
                        type="text" />
               </Box>
-              <Box mt={4}>
-                <LinkButton fg='white' bg='black' children="Save" />
-              </Box>
+              <Row mt={4}>
+                <Column width={1/2}>
+                  <LinkButton fg='white' bg='black' children="Save"
+                              disabled={pristine || submitting}
+                              onClick={handleSubmit} />
+                </Column>
+                <Column width={1/2}>
+                  <LinkButton fg='white' bg='black' children="Cancel"
+                              disabled={submitting} onClick={onCancel} />
+                </Column>
+              </Row>
             </form>
         );
     }
