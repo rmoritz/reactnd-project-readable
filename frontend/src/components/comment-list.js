@@ -2,8 +2,10 @@ import React from 'react';
 import * as ReactRedux from 'react-redux';
 import PropTypes from 'prop-types';
 import { Badge, Text, Row, Column } from 'rebass';
-import { LinkIcon } from './custom-styled';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import sortBy from 'sort-by';
+import { LinkIcon } from './custom-styled';
+import * as CommentActions from '../actions/comments';
 
 class CommentList extends React.Component {
     static propTypes = {
@@ -12,9 +14,15 @@ class CommentList extends React.Component {
 
     render() {
         let { comments } = this.props;
-        const postId = this.props.forPost;
+        const {
+            forPost,
+            upvoteComment,
+            downvoteComment,
+            deleteComment
+        } = this.props;
 
-        comments = comments.filter((c) => c.parentId === postId);
+        comments = comments.filter((c) => c.parentId === forPost);
+        comments.sort(sortBy('-voteScore'));
 
         return (
             <div>
@@ -28,15 +36,20 @@ class CommentList extends React.Component {
                                         <FontAwesomeIcon icon="star" /> {c.voteScore}
                                     </Column>
                                     <Column width={1/5}>
-                                        <LinkIcon icon="thumbs-up" />
+                                      <LinkIcon icon="thumbs-up"
+                                                onClick={() => upvoteComment(c.id)} />
                                     </Column>
                                     <Column width={1/5}>
-                                        <LinkIcon icon="thumbs-down" />
+                                      <LinkIcon icon="thumbs-down"
+                                                onClick={() => downvoteComment(c.id)} />
                                     </Column>
                                     <Column width={1/5}>
                                         <LinkIcon icon="edit" />
                                     </Column>
-                                    <Column width={1/5}><LinkIcon icon="trash" /></Column>
+                                    <Column width={1/5}>
+                                      <LinkIcon icon="trash"
+                                                onClick={() => deleteComment(c.id)} />
+                                    </Column>
                                 </Row>
                             </div>
                         ))
@@ -50,4 +63,12 @@ function mapStateToProps({ comments }) {
     return { comments };
 }
 
-export default ReactRedux.connect(mapStateToProps)(CommentList);
+function mapDispatchToProps(dispatch) {
+    return {
+        upvoteComment: (id) => dispatch(CommentActions.upvoteComment(id)),
+        downvoteComment: (id) => dispatch(CommentActions.downvoteComment(id)),
+        deleteComment: (id) => dispatch(CommentActions.deleteComment(id))
+    };
+}
+
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(CommentList);
