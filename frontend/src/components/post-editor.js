@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
-import { Row, Column, Box, Label, Input, Textarea, Select } from 'rebass';
+import { Relative, Absolute, Row, Column, Box, Label, Input, Textarea, Select } from 'rebass';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { LinkButton } from './custom-styled';
@@ -76,8 +76,12 @@ class PostEditor extends React.Component {
                               onClick={handleSubmit} />
                 </Column>
                 <Column width={1/2}>
-                  <LinkButton fg='white' bg='black' children="Cancel"
-                              disabled={submitting} onClick={onCancel} />
+                  <Relative>
+                    <Absolute right={0}>
+                      <LinkButton fg='white' bg='black' children="Cancel"
+                                  disabled={submitting} onClick={onCancel} />
+                    </Absolute>
+                  </Relative>
                 </Column>
               </Row>
             </form>

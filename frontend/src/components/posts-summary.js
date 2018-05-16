@@ -40,8 +40,8 @@ class PostsSummary extends React.Component {
                                   initialValues={selectedPost} />
                    </Modal>)
               }
-              <Subhead mt={4} children="Categories" />
-              <Group>
+              <Subhead mt={4} mx={0} children="Categories" />
+              <Group mt={2}>
                   {
                       (categories.map(c => 
                           <ButtonOutline key={c.name} 
@@ -53,8 +53,8 @@ class PostsSummary extends React.Component {
               <Row mt={4}>
                 <Column width={3/4}>
                   {
-                      (category && <Subhead children={`Posts in category ${match.params[0]}`} />)
-                        || (<Subhead children="All posts" />)
+                    (category && <Subhead mx={0} children={`Posts in category ${match.params[0]}`} />)
+                        || (<Subhead mx={0} children="All posts" />)
                   }
                 </Column>
                 <Column width={1/4}>

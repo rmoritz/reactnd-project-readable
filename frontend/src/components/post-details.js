@@ -14,17 +14,29 @@ class PostDetails extends React.Component {
 
         this.state = {
             postEditorVisible: false
-        }
+        };
     }
 
     render() {
-        const { match, posts, upvotePost, downvotePost, savePost } = this.props;
+        const {
+            match,
+            posts,
+            upvotePost,
+            downvotePost,
+            savePost,
+            deletePost,
+            history
+        } = this.props;
         const { postEditorVisible } = this.state;
         const { postId } = match.params;
         const p = posts.find((p) => p.id === postId);
         const toggleEditorVisibility = this.toggleEditorVisibility.bind(this);
         const savePostAndHideModal = 
-            (post) => savePost(post).then(() => toggleEditorVisibility());
+              (post) => savePost(post)
+              .then(() => toggleEditorVisibility());
+        const deletePostAndGoHome =
+              (postId) => deletePost(postId)
+              .then(() => history.push('/'));
 
         return (
             (p &&
@@ -61,15 +73,18 @@ class PostDetails extends React.Component {
                       <LinkIcon icon="edit"
                                 onClick={toggleEditorVisibility} />
                     </Column>
-                    <Column width={1/5}><LinkIcon icon="trash" /></Column>
+                    <Column width={1/5}>
+                      <LinkIcon icon="trash"
+                                onClick={() => deletePostAndGoHome(p.id)}/>
+                    </Column>
                 </Row>
                 <Divider w={1} color='black' />                
                 <Subhead mt={4} mx={0} children="Comments" />
                 <Box mt={2} ml={2}>
-                 <CommentList for={postId} />
+                    <CommentList forPost={postId} />
                 </Box>
             </Box>) || null
-        )
+        );
     }
 
     componentWillMount() {
@@ -102,6 +117,7 @@ function mapDispatchToProps(dispatch) {
                 return dispatch(PostActions.createPost(post));
             }
         },
+        deletePost: (id) => dispatch(PostActions.deletePost(id)),
         upvotePost: (id) => dispatch(PostActions.upvotePost(id)),
         downvotePost: (id) => dispatch(PostActions.downvotePost(id)),
         loadCommentsForPost: (id) => dispatch(CommentActions.loadCommentsForPost(id))

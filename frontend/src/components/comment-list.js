@@ -7,12 +7,12 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class CommentList extends React.Component {
     static propTypes = {
-        for: PropTypes.string.isRequired
+        forPost: PropTypes.string.isRequired
     }
 
     render() {
         let { comments } = this.props;
-        const postId = this.props.for;
+        const postId = this.props.forPost;
 
         comments = comments.filter((c) => c.parentId === postId);
 
