@@ -81,7 +81,7 @@ class PostsSummary extends React.Component {
 
     selectCategory(category) {
         const { history } = this.props;
-        history.push(category.path);
+        history.push(`/${category.path}`);
     }
 
     selectPostAndToggleEditorVisibility(post) {

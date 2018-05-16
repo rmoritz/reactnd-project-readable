@@ -8,6 +8,7 @@ import faSortUp from '@fortawesome/fontawesome-free-solid/faSortUp';
 import faSortDown from '@fortawesome/fontawesome-free-solid/faSortDown';
 import faComments from '@fortawesome/fontawesome-free-solid/faComments';
 import faStar from '@fortawesome/fontawesome-free-solid/faStar';
+import faBinoculars from '@fortawesome/fontawesome-free-solid/faBinoculars';
 
 export function loadIcons() {
     FontAwesome.library.add(
@@ -19,6 +20,7 @@ export function loadIcons() {
         faSortUp,
         faSortDown,
         faComments,
-        faStar
+        faStar,
+        faBinoculars
     );
 };

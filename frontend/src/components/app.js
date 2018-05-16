@@ -8,6 +8,7 @@ import { loadIcons } from '../utils/icons';
 import PostsSummary from './posts-summary';
 import PostDetails from './post-details';
 import { PlainLink } from './custom-styled';
+import NotFound from './not-found';
 
 class App extends React.Component {
     render() {
@@ -31,6 +32,7 @@ class App extends React.Component {
                   <Route
                     exact path="/(react|redux|udacity)/:postId"
                     component={PostDetails} />
+                  <Route component={NotFound} />
                 </Switch>
               </Panel>
             </Container>

@@ -9,19 +9,21 @@ import * as CommentActions from '../actions/comments';
 
 class CommentList extends React.Component {
     static propTypes = {
-        forPost: PropTypes.string.isRequired
+        parentId: PropTypes.string.isRequired,
+        editComment: PropTypes.func.isRequired
     }
 
     render() {
         let { comments } = this.props;
         const {
-            forPost,
+            parentId,
+            editComment,
             upvoteComment,
             downvoteComment,
             deleteComment
         } = this.props;
 
-        comments = comments.filter((c) => c.parentId === forPost);
+        comments = comments.filter((c) => c.parentId === parentId);
         comments.sort(sortBy('-voteScore'));
 
         return (
@@ -44,7 +46,8 @@ class CommentList extends React.Component {
                                                 onClick={() => downvoteComment(c.id)} />
                                     </Column>
                                     <Column width={1/5}>
-                                        <LinkIcon icon="edit" />
+                                      <LinkIcon icon="edit"
+                                                onClick={() => editComment(c)} />
                                     </Column>
                                     <Column width={1/5}>
                                       <LinkIcon icon="trash"

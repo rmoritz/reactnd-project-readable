@@ -4,6 +4,8 @@ export const LOAD_COMMENTS_FOR_POST = 'LOAD_COMMENTS_FOR_POST';
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT';
 export const DOWNVOTE_COMMENT = 'UPVOTE_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 
 export function loadCommentsForPost(postId) {
     return (dispatch) =>
@@ -31,6 +33,34 @@ export function deleteComment(id) {
         Api.deleteComment(id)
         .then(() =>
               dispatch(deleteCommentImpl(id)));
+}
+
+export function createComment(comment) {
+    return (dispatch) =>
+        Api.addComment(comment)
+        .then((res) =>
+              dispatch(createCommentImpl(res)));
+}
+
+export function updateComment(comment) {
+    return (dispatch) =>
+        Api.updateComment(comment)
+        .then((res) =>
+              dispatch(updateCommentImpl(res)));
+}
+
+function createCommentImpl(comment) {
+    return {
+        type: CREATE_COMMENT,
+        comment
+    };
+}
+
+function updateCommentImpl(comment) {
+    return {
+        type: UPDATE_COMMENT,
+        comment
+    };
 }
 
 function deleteCommentImpl(commentId) {
